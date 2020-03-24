@@ -41,13 +41,13 @@ namespace BackendApi.Services
             var resp = new RegisterResponse { Id = id };
             _jobs[id] = request.Description;
 
+            SaveMessageToDatabase(id, request.Description);
             PublishMessageToNats(id);
-            PublishMessageToDatabase(id, request.Description);
 
             return Task.FromResult(resp);
         }
 
-        private void PublishMessageToDatabase(string id, string description)
+        private void SaveMessageToDatabase(string id, string description)
         {
           IDatabase database = _сonnectionMultiplexer.GetDatabase();
           database.StringSet(id, description);

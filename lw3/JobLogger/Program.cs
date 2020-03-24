@@ -9,6 +9,7 @@ namespace JobLogger
         public static void Main(string[] args)
         {
             var subscriberService = new SubscriberService();
+            bool isCancel = false;
 
             string natsHostValue = Environment.GetEnvironmentVariable("NATS_HOST");
             string natsPortValue = Environment.GetEnvironmentVariable("NATS_PORT");
@@ -19,7 +20,10 @@ namespace JobLogger
             {
                 subscriberService.Run(connection);
                 Console.WriteLine("Events listening started");
-                Console.ReadKey();
+                Console.CancelKeyPress += (sender, args) => { isCancel = true; };
+                while (!isCancel) 
+                {
+                }
             }
         }
     }

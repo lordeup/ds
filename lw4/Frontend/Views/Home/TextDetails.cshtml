@@ -1,0 +1,18 @@
+@using BackendApi;
+
+@model TextDetailsViewModel
+@{
+    ViewData["Title"] = "Text details";
+}
+
+<div class="textDetails">
+    @if (Model.Status == ProcessingStatus.Completed)
+    {
+        <p><strong>Rank: </strong> <code>@Model.Rank</code></p>
+    }
+    else
+    {
+        <h1 class="text-danger">Error.</h1>
+        <h2 class="text-danger">Failed to get text rank.</h2>
+    }
+</div>
